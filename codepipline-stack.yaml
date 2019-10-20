@@ -59,46 +59,6 @@ Parameters:
     MaxLength: 100
     ConstraintDescription: You must enter a kubectl IAM role
 
-
-Metadata:
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-      - Label:
-          default: GitHub
-        Parameters:
-          - GitHubUser
-          - GitHubToken
-          - GitSourceRepo
-          - GitBranch
-      - Label:
-          default: CodeBuild
-        Parameters:
-          - CodeBuildDockerImage
-      - Label:
-          default: IAM
-        Parameters:
-          - KubectlRoleName
-      - Label:
-          default: EKS
-        Parameters:
-          - EksClusterName
-    ParameterLabels:
-      GitHubUser:
-        default: Username
-      GitHubToken:
-        default: Access token
-      GitSourceRepo:
-        default: Repository
-      GitBranch:
-        default: Branch
-      CodeBuildDockerImage:
-        default: Docker image
-      KubectlRoleName:
-        default: kubectl IAM role
-      EksClusterName:
-        default: EKS cluster name
-
-
 Resources:
 
   EcrDockerRepository:
