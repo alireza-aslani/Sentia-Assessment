@@ -326,3 +326,10 @@ Outputs:
       Name:
         Fn::Sub: "${AWS::StackName}-VPCID"
 
+  GWID:
+    Value:
+      Ref: InternetGateway
+    Description: InternetGateway ID
+    Export:
+      Name:
+        Fn::Sub: "${AWS::StackName}-InternetGatewayID"
