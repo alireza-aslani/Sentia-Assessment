@@ -39,10 +39,10 @@ Parameters:
         Type: String
     
     DatabaseUsername:
-        Default: "prisma"
+        Default: "wordpress"
         AllowedPattern: "[a-zA-Z0-9]+"
         ConstraintDescription: must contain only alphanumeric characters. Must have length 1-16
-        Description: The database admin account user name. (Default "prisma")
+        Description: The database admin account user name. (Default "wordpress")
         MaxLength: '16'
         MinLength: '1'
         Type: String
@@ -64,7 +64,7 @@ Resources:
     DatabaseSubnetGroup:
         Type: AWS::RDS::DBSubnetGroup
         Properties:
-            DBSubnetGroupDescription: CloudFormation managed DB subnet group.
+            DBSubnetGroupDescription: Creates a database subnet group. Subnet groups must contain at least two subnets in two different AZ
             SubnetIds:
                 - !Ref PublicSubnet1
                 - !Ref PublicSubnet2
@@ -84,10 +84,8 @@ Resources:
             EngineVersion: 5.7.19
             DBInstanceClass:
                 Ref: DatabaseInstanceType
-            DBSubnetGroupName:
-                Ref: DatabaseSubnetGroup    
             DBParameterGroupName: !Ref ParameterGroup
-            PubliclyAccessible: "true"
+#            PubliclyAccessible: "true"
             StorageType: "gp2"
             AllocatedStorage: !Ref AllocatedStorage
             BackupRetentionPeriod: 35
@@ -111,7 +109,7 @@ Resources:
                     !Sub "${VPCStack}-VPCID"
             AvailabilityZone: !Select [ 0, !GetAZs ]
             CidrBlock: "10.0.32.0/24"
-            MapPublicIpOnLaunch: true
+#            MapPublicIpOnLaunch: true
             Tags: 
                 - Key: Name 
                   Value: !Sub ${DatabaseName} Public Subnet (AZ1)
@@ -124,7 +122,7 @@ Resources:
                     !Sub "${VPCStack}-VPCID"
             AvailabilityZone: !Select [ 1, !GetAZs ]
             CidrBlock: "10.0.64.0/24"
-            MapPublicIpOnLaunch: true
+#            MapPublicIpOnLaunch: true
             Tags: 
                 - Key: Name 
                   Value: !Sub ${DatabaseName} Public Subnet (AZ2)
@@ -153,7 +151,7 @@ Resources:
                     !Sub "${VPCStack}-VPCID"
             GroupDescription: Access to database
             SecurityGroupIngress:
-                - CidrIp: 0.0.0.0/0
+                - CidrIp: 10.0.0.0/16
                   FromPort: 3306
                   ToPort: 3306
                   IpProtocol: tcp
