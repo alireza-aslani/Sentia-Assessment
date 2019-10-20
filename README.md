@@ -1,18 +1,3 @@
-curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator
-chmod +x ./aws-iam-authenticator
-mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
-echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-aws-iam-authenticator help
-
-
-
-pip3 install awscli --upgrade --user
-aws configure
-aws eks update-kubeconfig --name Cluster-dny86QGnO79k
-kubectl --kubeconfig=/home/alireza/.kube/config cluster-info
-kubectl --kubeconfig=/home/alireza/.kube/config apply -f aws-auth-cm.yaml
-kubectl --kubeconfig=/home/alireza/.kube/config get nodes
-
 # Prerequisites
 - [EC2 Key Pair](https://console.aws.amazon.com/ec2/v2/home)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
@@ -66,3 +51,24 @@ kubectl apply -f aws-auth-cm.yaml
 ```
 kubectl get nodes --watch
 ```
+# Application & Database Setup
+
+## MySQL
+This [mysql.yaml](/mysql.yaml) creates the database for our application . use valid password because we are going to use it later . fill the VPCSTACK parameter with `eks-vpc`.
+> this database can be used only from inside of vpc so do not try to connect to its endpoint from your system .
+
+## Wordpress Application (Simple Version)
+clone my [WP-Sample](https://github.com/alireza-aslani/WP-Sample) repo for deploying first wordpress website in your eks cluster. 
+1.) Create database password
+```
+kubectl create secret generic mysql-pass --from-literal=password=1234qwer
+```
+2.) Create the [kubernetes storage class](https://github.com/alireza-aslani/WP-Sample/blob/master/kubernetes-storage-class.yaml)
+```
+kubectl apply -f kubernetes-storage-class.yaml
+```
+3.) Open [wordpress-deployment](https://github.com/alireza-aslani/WP-Sample/blob/master/wordpress-deployment.yaml) and set `WORDPRESS_DB_HOST` with the `DatabaseEndpoint` output from the previous step, now apply:
+```
+kubectl apply -f wordpress-deployment.yaml
+```
+4.) use `a3a994402f38411e9887912f5f382f18-377045863.us-east-1.elb.amazonaws.com` this command and you should see the ALB url under the EXTERNAL-IP . open the url in your browser :)
