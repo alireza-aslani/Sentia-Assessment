@@ -8,7 +8,7 @@
 
 ## VPC
 This [kubernetes-vpc-stack-public-only](kubernetes-vpc-stack-public-only.yaml) creates the [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) that our Kubernetes cluster will run inside. you can config from 2 to 4 different public subnet in a vpc. there is an extended version that has more features which you can use that for more customization .
-> if you want to just see how it works just leave the defaul values select to AZs and set the stack name to `eks-vpc` because they are needed in the next few steps.
+> if you want to just see how it works just leave the defaul values select two different AZs (prefable us-east-1a,us-east-1b) and set the stack name to `eks-vpc` because they are needed in the next few steps.
 
 ## Cluster
 This [kubernetes-eks-cluster](/kubernetes-eks-cluster.yaml) creates the [AWS Kubernetes EKS Cluster](https://aws.amazon.com/eks/) that our worker nodes will be associated with.
