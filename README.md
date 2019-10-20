@@ -71,4 +71,4 @@ kubectl apply -f kubernetes-storage-class.yaml
 ```
 kubectl apply -f wordpress-deployment.yaml
 ```
-4.) use `a3a994402f38411e9887912f5f382f18-377045863.us-east-1.elb.amazonaws.com` this command and you should see the ALB url under the EXTERNAL-IP . open the url in your browser :)
+4.) use `kubectl get svc` command and you should see the `ELB` generated url under the EXTERNAL-IP . open the url in your browser :)
