@@ -17,3 +17,10 @@ kubectl --kubeconfig=/home/alireza/.kube/config get nodes
 - [EC2 Key Pair](https://console.aws.amazon.com/ec2/v2/home)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 - [kubectl & aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+
+
+# Stacks
+
+## VPC
+This [kubernetes-vpc-stack-public-only](https://github.com/alireza-aslani/Sentia-Assessment/blob/master/kubernetes-vpc-stack-public-only.yaml) creates the [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) that our Kubernetes cluster will run inside. you can config from 2 to 4 different public subnet in a vpc. there is an extended version that has more features which you can use that for more customization .
+> if you want to just see how it works just leave the defaul values and set the stack name to "eks-vpc" . because we are going to use this later 
