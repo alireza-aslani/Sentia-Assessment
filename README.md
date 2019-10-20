@@ -13,6 +13,7 @@ kubectl --kubeconfig=/home/alireza/.kube/config cluster-info
 kubectl --kubeconfig=/home/alireza/.kube/config apply -f aws-auth-cm.yaml
 kubectl --kubeconfig=/home/alireza/.kube/config get nodes
 
-
-
-
+# Prerequisites
+- [EC2 Key Pair](https://console.aws.amazon.com/ec2/v2/home)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+- [kubectl & aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
