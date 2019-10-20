@@ -22,5 +22,16 @@ kubectl --kubeconfig=/home/alireza/.kube/config get nodes
 # Stacks
 
 ## VPC
-This [kubernetes-vpc-stack-public-only](https://github.com/alireza-aslani/Sentia-Assessment/blob/master/kubernetes-vpc-stack-public-only.yaml) creates the [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) that our Kubernetes cluster will run inside. you can config from 2 to 4 different public subnet in a vpc. there is an extended version that has more features which you can use that for more customization .
-> if you want to just see how it works just leave the defaul values and set the stack name to "eks-vpc" . because we are going to use this later 
+This [kubernetes-vpc-stack-public-only](kubernetes-vpc-stack-public-only.yaml) creates the [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) that our Kubernetes cluster will run inside. you can config from 2 to 4 different public subnet in a vpc. there is an extended version that has more features which you can use that for more customization .
+> if you want to just see how it works just leave the defaul values select to AZs and set the stack name to `eks-vpc` because they are needed in the next few steps.
+
+## Cluster
+This [kubernetes-eks-cluster](/kubernetes-eks-cluster.yaml) creates the [AWS Kubernetes EKS Cluster](https://aws.amazon.com/eks/) that our worker nodes will be associated with.
+> Copy the `VPCStack` parameter from the previous step into the corresponding `VPCStack` parameter ,for example I used`eks-vpc`, next create the stack .
+Record the `ClusterName` and `ClusterEndpoint` outputs because they are needed in the next few steps.
+
+## Nodes
+This [kubernetes-eks-nodes](/kubernetes-eks-nodes.yaml) creates the [EC2](https://aws.amazon.com/ec2/) nodes that will run our Kubernetes containers.
+>Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers.
+
+Copy the `ClusterName` output from the previous step into the corresponding `ClusterName` parameter .
